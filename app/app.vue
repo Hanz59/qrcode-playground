@@ -1,11 +1,20 @@
 <template>
   <div class="app-shell">
+    <div class="binary-grid">
+      <span>01010101</span>
+      <span>10101010</span>
+      <span>00110011</span>
+      <span>11001100</span>
+      <span>01100110</span>
+      <span>10011001</span>
+    </div>
+
     <div class="hero-panel">
       <div class="hero-copy">
-        <span class="eyebrow">QR Code Playground</span>
-        <h1>Create stylish QR codes in seconds</h1>
+        <span class="eyebrow">QR Code Matrix</span>
+        <h1>Blue QR codes with a binary glow</h1>
         <p class="hero-text">
-          Type a message or URL, choose a variant, and instantly preview an elegant QR design.
+          Type text or a URL, choose a style, and watch your code appear in a digital blue matrix.
         </p>
 
         <div class="controls">
@@ -24,18 +33,18 @@
       <div class="preview-card">
         <div class="preview-badge">Live preview</div>
         <img class="qr-preview" width="320" :src="qr" alt="QR Code" />
-        <p class="preview-note">Elegant marker and dot styling for modern QR artwork.</p>
+        <p class="preview-note">Cool blue glass, glowing digits, and crisp digital contrast.</p>
       </div>
     </div>
 
     <div class="feature-strip">
       <div class="feature-item">
-        <strong>Instant feedback</strong>
-        <span>See changes immediately as you type.</span>
+        <strong>Binary mood</strong>
+        <span>Subtle ones and zeros float in the background for a tech-inspired feel.</span>
       </div>
       <div class="feature-item">
-        <strong>Modern shapes</strong>
-        <span>Switch between default, rounded, pixelated, and dotted variants.</span>
+        <strong>Neon blue</strong>
+        <span>Bright blue gradients and glassy cards create a futuristic style.</span>
       </div>
     </div>
   </div>
@@ -63,18 +72,43 @@ const qr = useQrcode(text, {
 
 <style scoped>
 .app-shell {
+  position: relative;
   min-height: 100vh;
   padding: 3rem 1.5rem 2rem;
-  color: #e2e8f0;
-  background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 25%),
-    radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.2), transparent 20%),
-    linear-gradient(180deg, #020617 0%, #0f172a 100%);
+  color: #cce7ff;
+  background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 20%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.16), transparent 25%),
+    linear-gradient(180deg, #04172d 0%, #061f3d 42%, #0a294e 100%);
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  overflow: hidden;
+}
+
+.binary-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  pointer-events: none;
+  opacity: 0.14;
+}
+
+.binary-grid span {
+  align-self: center;
+  justify-self: center;
+  color: #7dd3fc;
+  letter-spacing: 0.3em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
 }
 
 .hero-panel {
+  position: relative;
   width: min(1200px, 100%);
   margin: 0 auto;
   display: grid;
@@ -83,12 +117,23 @@ const qr = useQrcode(text, {
   align-items: center;
 }
 
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 2.5rem;
+  background: rgba(59, 130, 246, 0.18);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
 .hero-copy {
-  padding: 2.2rem 2.4rem;
-  border-radius: 2rem;
-  background: rgba(15, 23, 42, 0.88);
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  box-shadow: 0 40px 120px rgba(15, 23, 42, 0.25);
+  position: relative;
+  padding: 2.4rem;
+  border-radius: 2.25rem;
+  background: rgba(7, 24, 45, 0.88);
+  border: 1px solid rgba(96, 165, 250, 0.22);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.24);
 }
 
 .eyebrow {
@@ -96,27 +141,26 @@ const qr = useQrcode(text, {
   margin-bottom: 1rem;
   padding: 0.55rem 0.95rem;
   border-radius: 999px;
-  background: rgba(59, 130, 246, 0.14);
-  color: #bfdbfe;
+  background: rgba(59, 130, 246, 0.88);
+  color: #dbeafe;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   font-size: 0.78rem;
   font-weight: 700;
 }
 
 .hero-copy h1 {
   margin: 0.75rem 0 1rem;
-  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-size: clamp(2.5rem, 4vw, 3.8rem);
   line-height: 1.05;
-  letter-spacing: -0.04em;
-  color: #f8fafc;
+  color: #bfdbfe;
 }
 
 .hero-text {
   max-width: 44rem;
   margin-bottom: 2rem;
-  color: #cbd5e1;
-  line-height: 1.8;
+  color: #c7d2fe;
+  line-height: 1.85;
 }
 
 .controls {
@@ -128,29 +172,44 @@ const qr = useQrcode(text, {
   display: grid;
   gap: 0.75rem;
   font-size: 0.95rem;
-  color: #cbd5e1;
+  color: #bfdbfe;
 }
 
 .field span {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .preview-card {
   position: relative;
   padding: 2rem;
   border-radius: 2rem;
-  background: rgba(15, 23, 42, 0.92);
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  box-shadow: 0 40px 100px rgba(15, 23, 42, 0.22);
+  background: rgba(4, 18, 37, 0.96);
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  box-shadow: 0 24px 80px rgba(59, 130, 246, 0.18);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.6rem;
 }
 
+.preview-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 30%);
+  pointer-events: none;
+}
+
+.preview-card > * {
+  position: relative;
+  z-index: 1;
+}
+
 .preview-badge {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.96), rgba(139, 92, 246, 0.95));
-  color: #ffffff;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.96), rgba(59, 130, 246, 0.95));
+  color: #0f172a;
   padding: 0.65rem 1rem;
   border-radius: 999px;
   font-size: 0.9rem;
@@ -160,20 +219,21 @@ const qr = useQrcode(text, {
 
 .qr-preview {
   width: min(100%, 320px);
-  border-radius: 1.75rem;
-  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 2rem;
+  border: 1px solid rgba(96, 165, 250, 0.22);
   padding: 1rem;
-  background: #ffffff;
+  background: #eff6ff;
 }
 
 .preview-note {
   max-width: 18rem;
   text-align: center;
-  color: #94a3b8;
-  line-height: 1.7;
+  color: #bfdbfe;
+  line-height: 1.75;
 }
 
 .feature-strip {
+  position: relative;
   width: min(1200px, 100%);
   margin: 0 auto;
   display: grid;
@@ -182,22 +242,37 @@ const qr = useQrcode(text, {
 }
 
 .feature-item {
+  position: relative;
   padding: 1.5rem;
-  border-radius: 1.5rem;
-  background: rgba(15, 23, 42, 0.84);
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  color: #e2e8f0;
+  border-radius: 1.75rem;
+  background: rgba(5, 18, 38, 0.86);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  color: #cfe8ff;
+  overflow: hidden;
+}
+
+.feature-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(96, 165, 250, 0.2), transparent 32%),
+    radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.18), transparent 28%);
+  pointer-events: none;
 }
 
 .feature-item strong {
   display: block;
   margin-bottom: 0.7rem;
   font-size: 1rem;
+  z-index: 1;
+  position: relative;
 }
 
 .feature-item span {
-  color: #94a3b8;
+  color: #93c5fd;
   line-height: 1.75;
+  z-index: 1;
+  position: relative;
 }
 
 @media (max-width: 900px) {
